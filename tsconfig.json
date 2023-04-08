@@ -12,7 +12,8 @@
       "@shared/*": ["../shared/*"],
       "@errors/*": ["../shared/errors/*"],
       "@interfaces/*": ["../shared/interfaces/*"],
-      "@utils/*": ["../shared/utils/*"]
+      "@utils/*": ["../shared/utils/*"],
+      "@/*": ["./src"]
     },
     "outDir": "./dist",
     "forceConsistentCasingInFileNames": true   
