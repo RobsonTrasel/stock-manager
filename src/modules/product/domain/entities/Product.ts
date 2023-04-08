@@ -12,14 +12,23 @@ class Product {
   readonly id: ProductId;
   readonly name: string;
   readonly price: number;
-  readonly stock?: Stock;
+  private _stock?: Stock;
 
   constructor(data: ProductData) {
     this.id = data.id ?? new ProductId();
     this.name = data.name;
     this.price = data.price;
-    this.stock = data.stock;
+    this._stock = data.stock;
   }
+
+  get stock(): Stock | undefined {
+    return this._stock;
+  }
+
+  updateStock(stock: Stock): void {
+    this._stock = stock;
+  }
+
 }
 
 export { Product };
