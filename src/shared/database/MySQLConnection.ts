@@ -1,11 +1,14 @@
 import mysql from 'mysql2/promise'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 interface MySQLConnectionOptions {
-  host: string;
+  host?: string;
   port?: number;
-  user: string;
-  password: string;
-  database: string;
+  user?: string;
+  password?: string;
+  database?: string;
 }
 
 class MySQLConnection {
@@ -13,11 +16,11 @@ class MySQLConnection {
 
   constructor(private readonly options: MySQLConnectionOptions) {
     this._pool = mysql.createPool({
-      host: options.host,
+      host: options.host || process.env.HOST,
       port: options.port || 3306,
-      user: options.user,
-      password: options.password,
-      database: options.database,
+      user: options.user || process.env.USER,
+      password: options.password  || process.env.PASSWORD,
+      database: options.database || process.env.DATABASE,
       connectionLimit: 10
     });
   }
@@ -28,4 +31,14 @@ class MySQLConnection {
   }
 }
 
-export { MySQLConnection };
+const connectionOptions = {
+  host: process.env.HOST,
+  port: 3306,
+  user: process.env.USER,
+  password: process.env.PASSWORD,
+  database: process.env.DATABASE,
+};
+
+const connection = new MySQLConnection(connectionOptions)
+
+export { connection, MySQLConnection };
