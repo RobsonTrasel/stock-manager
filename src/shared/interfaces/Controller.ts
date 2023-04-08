@@ -1,3 +1,4 @@
+import { Request, Response } from "express";
 export interface Controller {
-  handle(request: any): Promise<any>;
+  handle(request: Request, response: Response): Promise<Response>;
 }
