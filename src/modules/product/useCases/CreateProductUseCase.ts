@@ -16,8 +16,9 @@ class CreateProductUseCase {
     const product = new Product({ name, price });
 
     if (stock) {
-      product.stock = new Stock({ quantity: stock });
+      product.updateStock(new Stock({ quantity: stock }));
     }
+
 
     return this.productRepository.save(product);
   }

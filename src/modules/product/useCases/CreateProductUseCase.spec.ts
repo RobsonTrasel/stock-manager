@@ -1,13 +1,21 @@
-import { Product } from '@modules/product/domain/entities/Product';
-import { MySQLConnection } from 'shared/database/MySQLConnection';
-import { MySQLProductRepository } from '@modules/product/infrastructure/repositories/MySQLProductRepository';
+import { Product } from '../domain/entities/Product';
+import { MySQLProductRepository } from '../infrastructure/repositories/MySQLProductRepository';
 import { CreateProductUseCase } from './CreateProductUseCase'
+import { MySQLConnection } from '../../../shared/database/MySQLConnection';
 
 describe('CreateProductUseCase', () => {
   let createProductUseCase: CreateProductUseCase;
 
   beforeAll(() => {
-    const connection = new MySQLConnection();
+    const connectionOptions = {
+      host: process.env.HOST,
+      port: 3306,
+      user: process.env.USER,
+      password: process.env.PASSWORD,
+      database: process.env.DATABASE,
+    };
+    
+    const connection = new MySQLConnection(connectionOptions)
     const productRepository = new MySQLProductRepository(connection)
     createProductUseCase = new CreateProductUseCase(productRepository);
   })
